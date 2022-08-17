@@ -28,25 +28,9 @@ func main() {
 	userRepository := user.NewRepository(db)
 	campaignRepository := campaign.NewRepository(db)
 
-	campaigns, err := campaignRepository.FindByUserID(1)
-
-	fmt.Println("debug")
-	fmt.Println("debug")
-	fmt.Println("debug")
-	fmt.Println(len(campaigns))
-
-	for _, campaign := range campaigns {
-		fmt.Println(campaign.Name)
-		if len(campaign.CampaignImages) > 0 {
-			fmt.Println(campaign.CampaignImages[0].FileName)
-		}
-	}
-
 	userService := user.NewService(userRepository)
-
 	//buatcek kambar manual  gambar
 	// userService.SaveAvatar(1, "image/1-profile.png")
-
 	/* tes  service
 	input := user.LoginInput{
 		Email:    "dsa@gmail.com",
@@ -61,7 +45,6 @@ func main() {
 	fmt.Println(user.Email)
 	fmt.Println(user.Name)
 	*/
-
 	/* mencoba tes cari user
 	userByEmai, err := userRepository.FindByEmail("dsa@gmail.com")
 	if err != nil {
@@ -75,6 +58,23 @@ func main() {
 	}
 	*/
 
+	campaignService := campaign.NewService(campaignRepository)
+
+	// tes campaigns
+	// campaigns, err := campaignRepository.FindByUserID(1)
+	// fmt.Println("debug")
+	// fmt.Println("debug")
+	// fmt.Println("debug")
+	// fmt.Println(len(campaigns))
+	// for _, campaign := range campaigns {
+	// 	fmt.Println(campaign.Name)
+	// 	if len(campaign.CampaignImages) > 0 {
+	// 		fmt.Println(campaign.CampaignImages[0].FileName)
+	// 	}
+	// }
+
+	campaigns, _ := campaignService.FindCampaign(2)
+	fmt.Println(len(campaigns))
 	authService := auth.NewService()
 	/* tes GenerateToken Jwt
 	fmt.Println(authService.GenerateToken(1001))
